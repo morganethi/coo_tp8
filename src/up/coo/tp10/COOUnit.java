@@ -6,14 +6,16 @@ import java.util.regex.*;
 public class COOUnit {
 	
 	private HashMap<Integer,Method> testMethod;
-	private boolean hasSetUp;
-	private boolean hastearDown;
+	private Method setUp;
+	private Method tearDown;
+	private Object obj;
 
-	public COOUnit(Object O) {
-		this.hasSetUp=false;
-		this.hastearDown=false;
+	public COOUnit(Object o) {
+		this.obj = o;
+		this.setUp = null;
+		this.tearDown = null;
 		this.testMethod = new HashMap<Integer,Method>();
-		Method allMethod[] = O.getClass().getDeclaredMethods();
+		Method allMethod[] = o.getClass().getDeclaredMethods();
 		Pattern p = Pattern.compile("test[0-9]+");
 		Pattern set = Pattern.compile("setUp");
 		Pattern tear = Pattern.compile("tearDown");
@@ -26,16 +28,18 @@ public class COOUnit {
 				String num = mres.replaceAll("test","");
 				testMethod.put(Integer.valueOf(num),allMethod[i]);
 			}else if(matset.find()){
-				this.hasSetUp=true;
+				this.setUp = allMethod[i];
 			}else if(matear.find()){
-				this.hastearDown=true;
+				this.tearDown = allMethod[i];
 			}
-		}
-		for(Method m : this.testMethod.values()){
-			System.out.println(m.getName());
-		}
+		}	
+	}
+	
+	public void drive() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		// Faire les vérif de setUp et tearDown
 		
 		
+		this.setUp.invoke(this.obj,new Object[0]);
 		
 	}
 
