@@ -20,6 +20,7 @@ public class COOUnit {
 		Pattern set = Pattern.compile("setUp");
 		Pattern tear = Pattern.compile("tearDown");
 		for(int i=0; i< allMethod.length; i++){
+			
 			Matcher m = p.matcher(allMethod[i].getName());
 			Matcher matset = set.matcher(allMethod[i].getName());
 			Matcher matear = tear.matcher(allMethod[i].getName());
@@ -36,6 +37,7 @@ public class COOUnit {
 	}
 	
 	public void drive() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		
 		for(Method m : this.testMethod.values()){
 			if(this.setUp!=null){
 				this.setUp.invoke(this.obj,new Object[0]);
