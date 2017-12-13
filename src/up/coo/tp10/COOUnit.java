@@ -36,6 +36,12 @@ public class COOUnit {
 		}	
 	}
 	
+	/**
+	 * lance les tests
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public void drive() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		
 		for(Method m : this.testMethod.values()){
