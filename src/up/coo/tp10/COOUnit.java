@@ -36,11 +36,15 @@ public class COOUnit {
 	}
 	
 	public void drive() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
-		// Faire les vérif de setUp et tearDown
-		
-		
-		this.setUp.invoke(this.obj,new Object[0]);
-		
+		for(Method m : this.testMethod.values()){
+			if(this.setUp!=null){
+				this.setUp.invoke(this.obj,new Object[0]);
+			}
+			m.invoke(this.obj, new Object[0]);
+			if(this.tearDown!=null){
+				this.tearDown.invoke(this.obj, new Object[0]);
+			}
+		}
 	}
 
 }
